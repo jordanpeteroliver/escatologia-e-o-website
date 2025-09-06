@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Profética Interativa v2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 40vh; max-height: 400px; }
+        .gemini-result { white-space: pre-wrap; background-color: #f8f9fa; border-left: 3px solid #003F5C; padding: 1rem; border-radius: 0.25rem; margin-top: 1rem; font-size: 0.9rem; color: #333; text-align: left; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #FF6361; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 1rem auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .fade-in-section { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+        .tts-button:disabled, .action-button:disabled { opacity: 0.5; cursor: not-allowed; }
+        #danielImageContainer img { border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); margin-top: 1rem; max-height: 400px; width: auto; object-fit: contain; margin-left: auto; margin-right: auto; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <nav class="sticky top-0 bg-white/80 backdrop-blur-md shadow-md z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-3">
+                <h2 class="text-xl font-bold text-[#003F5C]">Análise Interativa v2</h2>
+                <div id="auth-container">
+                    <button id="loginBtn" class="bg-[#003F5C] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#002A3D] transition-colors">Login</button>
+                    <div id="userInfo" class="hidden items-center">
+                        <p id="userIdDisplay" class="text-sm text-gray-600 mr-4"></p>
+                        <button id="logoutBtn" class="bg-red-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-16 fade-in-section">
+            <h1 class="text-4xl md:text-5xl font-black text-[#003F5C] uppercase tracking-wider">Análise Profética na Era Tecnológica</h1>
+            <p class="text-lg text-[#366E8A] mt-2">Uma exploração aprofundada sobre a convergência de poder, tecnologia e narrativas antigas.</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <section id="section-daniel" class="lg:col-span-3 bg-white rounded-lg shadow-xl p-8 border-t-4 border-[#58508d] fade-in-section" role="region" aria-labelledby="daniel-title">
+                 <div class="flex justify-between items-start">
+                    <h2 id="daniel-title" class="text-2xl font-bold text-[#003F5C] mb-4 flex-grow">A Estátua de Daniel: Um Paradigma de Impérios</h2>
+                    <button class="tts-button" onclick="playTextFromSection('section-daniel-content')" aria-label="Ouvir análise da Estátua de Daniel"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#58508d] hover:text-[#3e3869]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.858 5.858a1 1 0 00-1.414 1.414L15.536 18.38l-1.415-1.414a7 7 0 00-9.9-9.9L5.858 5.858zM12 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg></button>
+                 </div>
+                <div id="section-daniel-content" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-4">
+                    <div>
+                        <p class="text-gray-700 mb-4">A visão da estátua em Daniel 2 descreve uma sucessão de impérios, servindo como modelo para analisar a ascensão e queda de potências globais.</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><span class="font-bold text-[#bc5090]">👑 Ouro:</span> Império Babilônico</li>
+                            <li><span class="font-bold text-[#ff6361]">🥈 Prata:</span> Império Medo-Persa</li>
+                            <li><span class="font-bold text-[#ffa600]">🥉 Bronze:</span> Império Grego</li>
+                            <li><span class="font-bold text-[#58508d]">⛓️ Ferro:</span> Império Romano</li>
+                            <li><span class="font-bold text-gray-500">🧱+⛓️ Ferro e Barro:</span> Uma fase final de poder dividido.</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <div id="danielImageContainer" class="min-h-[300px] bg-gray-100 rounded-lg flex items-center justify-center p-4">
+                            <p id="danielImagePlaceholder" class="text-gray-500">A imagem da estátua aparecerá aqui.</p>
+                            <div id="danielImageLoader" class="loader hidden"></div>
+                        </div>
+                        <button id="generateDanielImage" class="action-button mt-4 bg-[#58508d] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#3e3869] transition-colors">Gerar Imagem da Estátua com IA</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-fire" class="lg:col-span-2 bg-white rounded-lg shadow-xl p-8 border-t-4 border-[#FFA600] fade-in-section" role="region" aria-labelledby="fire-title">
+                 <div class="flex justify-between items-start">
+                    <h2 id="fire-title" class="text-2xl font-bold text-[#003F5C] mb-4 flex-grow">O "Fogo dos Céus" e a Conquista do Espaço 🔥</h2>
+                     <button class="tts-button" onclick="playTextFromSection('section-fire-content')" aria-label="Ouvir análise sobre fogo dos céus"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#FFA600] hover:text-[#E69500]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.858 5.858a1 1 0 00-1.414 1.414L15.536 18.38l-1.415-1.414a7 7 0 00-9.9-9.9L5.858 5.858zM12 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg></button>
+                 </div>
+                <div id="section-fire-content">
+                    <p class="text-gray-600 mb-6">A reutilização de foguetes não é apenas um espetáculo visual (Apocalipse 13:13), mas uma revolução estratégica que barateou o acesso ao espaço, permitindo a construção de mega-constelações de satélites.</p>
+                    <div class="chart-container" style="height: 300px;"><canvas id="cumulativeLandingsChart"></canvas></div>
+                    <p class="text-center text-sm text-gray-500 mt-2">O crescimento exponencial no número de aterrissagens bem-sucedidas demonstra a rápida maturação desta tecnologia disruptiva.</p>
+                </div>
+                 <div class="mt-6 text-center">
+                    <button id="analyzeFire" class="action-button bg-[#FFA600] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#E69500] transition-colors">✨ Aprofundar Análise com IA</button>
+                    <div id="fireAnalysisLoader" class="loader hidden"></div>
+                    <div id="fireAnalysisResult" class="gemini-result hidden" aria-live="polite"></div>
+                </div>
+                <div id="note-container-fire" class="mt-6 hidden"></div>
+            </section>
+            
+            <section id="section-satellites" class="bg-white rounded-lg shadow-xl p-8 border-t-4 border-[#00bfa5] fade-in-section" role="region" aria-labelledby="satellites-title">
+                <div class="flex justify-between items-start">
+                    <h2 id="satellites-title" class="text-2xl font-bold text-[#003F5C] mb-4 flex-grow">A Teia Global 🛰️</h2>
+                    <button class="tts-button" onclick="playTextFromSection('section-satellites-content')" aria-label="Ouvir análise sobre satélites"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00bfa5] hover:text-[#008c7a]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.858 5.858a1 1 0 00-1.414 1.414L15.536 18.38l-1.415-1.414a7 7 0 00-9.9-9.9L5.858 5.858zM12 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg></button>
+                </div>
+                <div id="section-satellites-content">
+                    <p class="text-gray-600 mb-6">Controlar a órbita baixa da Terra com milhares de satélites (como a Starlink) cria uma infraestrutura global com poder sem precedentes sobre múltiplos domínios vitais da sociedade moderna.</p>
+                    <div class="chart-container" style="height: 320px;"><canvas id="satelliteInfluenceChart"></canvas></div>
+                    <p class="text-center text-sm text-gray-500 mt-2">Domínios de influência de uma mega-constelação de satélites.</p>
+                </div>
+                <div id="note-container-satellites" class="mt-6 hidden"></div>
+            </section>
+
+            <section id="section-bci" class="lg:col-span-2 bg-white rounded-lg shadow-xl p-8 border-t-4 border-[#ff6361] fade-in-section" role="region" aria-labelledby="bci-title">
+                 <div class="flex justify-between items-start">
+                    <h2 id="bci-title" class="text-2xl font-bold text-[#003F5C] mb-4 flex-grow">A Interface Final: Cérebro-Máquina 🧠</h2>
+                    <button class="tts-button" onclick="playTextFromSection('section-bci-content')" aria-label="Ouvir análise sobre Interface Cérebro-Máquina"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#ff6361] hover:text-[#e65a58]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.858 5.858a1 1 0 00-1.414 1.414L15.536 18.38l-1.415-1.414a7 7 0 00-9.9-9.9L5.858 5.858zM12 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg></button>
+                 </div>
+                <div id="section-bci-content">
+                    <p class="text-gray-600 mb-6">A busca por uma simbiose entre a mente humana e a computação representa a fronteira final. A tecnologia de Interface Cérebro-Computador (BCI) promete curar doenças neurológicas, mas também abre a porta para o aprimoramento humano e a conexão direta com redes digitais.</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><b>Objetivo Médico Declarado:</b> Restaurar a visão, a mobilidade e tratar doenças como Parkinson e epilepsia.</li>
+                        <li><b>Potencial Futurista:</b> Comunicação telepática sintética, download de informações, controle de dispositivos com o pensamento.</li>
+                        <li><b>Questão Filosófica:</b> O que significa ser humano quando a biologia e a máquina se fundem?</li>
+                    </ul>
+                </div>
+                <div id="note-container-bci" class="mt-6 hidden"></div>
+            </section>
+
+            <section id="section-scenarios" class="bg-white rounded-lg shadow-xl p-8 border-t-4 border-[#7A9EAF] fade-in-section" role="region" aria-labelledby="scenarios-title">
+                <div class="flex justify-between items-start">
+                    <h2 id="scenarios-title" class="text-2xl font-bold text-[#003F5C] mb-4 flex-grow">Cenários Futuros 🔮</h2>
+                     <button class="tts-button" onclick="playTextFromSection('section-scenarios-content')" aria-label="Ouvir cenários futuros"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#7A9EAF] hover:text-[#5c7a8a]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.858 5.858a1 1 0 00-1.414 1.414L15.536 18.38l-1.415-1.414a7 7 0 00-9.9-9.9L5.858 5.858zM12 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg></button>
+                </div>
+                <div id="section-scenarios-content">
+                    <p class="text-gray-600 mb-6">Use a IA para extrapolar as tendências atuais e gerar cenários futuros plausíveis, explorando para onde a convergência tecnológica pode nos levar.</p>
+                </div>
+                <div class="text-center">
+                    <button id="generateScenarios" class="action-button bg-[#003F5C] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#002A3D] transition-colors">Gerar Cenários com IA</button>
+                    <div id="scenariosLoader" class="loader hidden"></div>
+                    <div id="scenariosResult" class="gemini-result hidden" aria-live="polite"></div>
+                </div>
+                <div id="note-container-scenarios" class="mt-6 hidden"></div>
+            </section>
+
+            <div class="lg:col-span-3 bg-[#003F5C] text-white rounded-lg shadow-xl p-8 fade-in-section">
+                <h2 class="text-2xl font-bold text-center mb-4">Conclusão da Análise</h2>
+                <p class="text-center text-gray-200">Esta análise apresentou correlações factuais entre textos antigos e a aceleração tecnológica, sem afirmar causalidade. A convergência de poder no espaço, na comunicação global e na biologia humana representa um ponto de inflexão histórico. O discernimento individual é a ferramenta final.</p>
+                <p class="text-center mt-4 text-gray-300 italic">"Examinando cada dia nas Escrituras se estas coisas eram assim." - Atos 17:11</p>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        let userId = null;
+        let noteUnsubscribe = {};
+
+        const apiKey = "";
+        const geminiApiTextUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+        const ttsApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+        const imageApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+
+        // --- GERAÇÃO DE IMAGEM ---
+        const generateDanielImageBtn = document.getElementById('generateDanielImage');
+        const danielImageContainer = document.getElementById('danielImageContainer');
+        const danielImageLoader = document.getElementById('danielImageLoader');
+        const danielImagePlaceholder = document.getElementById('danielImagePlaceholder');
+        generateDanielImageBtn.addEventListener('click', async () => {
+            generateDanielImageBtn.disabled = true;
+            danielImagePlaceholder.classList.add('hidden');
+            danielImageLoader.classList.remove('hidden');
+            const prompt = "Uma estátua antiga e majestosa, como descrito no livro de Daniel. A cabeça é de ouro reluzente, o peito e os braços de prata, o ventre e as coxas de bronze, as pernas de ferro e os pés de ferro misturado com barro. Estilo de arte épico e histórico, detalhado.";
+            const payload = { instances: [{ prompt }], parameters: { "sampleCount": 1 } };
+            try {
+                const response = await fetch(imageApiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                const result = await response.json();
+                if (result.predictions?.[0]?.bytesBase64Encoded) {
+                    const imageUrl = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                    danielImageContainer.innerHTML = `<img src="${imageUrl}" alt="Imagem gerada por IA da estátua do sonho de Nabucodonosor.">`;
+                } else { throw new Error("Resposta da API de imagem inválida."); }
+            } catch(error) {
+                console.error("Erro ao gerar imagem:", error);
+                danielImageContainer.innerHTML = '<p class="text-red-500">Falha ao gerar a imagem. Tente novamente.</p>';
+            } finally {
+                generateDanielImageBtn.disabled = false;
+                danielImageLoader.classList.add('hidden');
+            }
+        });
+
+        // --- FUNÇÕES DE API, TTS, AUTH, NOTAS, ANIMAÇÕES ---
+        // (As funções auxiliares como callGeminiAPI, playTextFromSection, etc., permanecem as mesmas)
+         async function callGeminiAPI(prompt, loaderElement, resultElement) {
+            loaderElement.classList.remove('hidden');
+            resultElement.classList.add('hidden');
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
+            try {
+                const response = await fetch(geminiApiTextUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if(!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                resultElement.textContent = text || "Não foi possível obter uma análise. A resposta da API estava vazia ou mal formatada.";
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                resultElement.textContent = "Erro ao conectar com a API de IA. Por favor, tente novamente mais tarde.";
+            } finally {
+                loaderElement.classList.add('hidden');
+                resultElement.classList.remove('hidden');
+            }
+        }
+
+        let audioContext; let currentAudioSource = null;
+        const base64ToArrayBuffer = (base64) => { const binaryString = window.atob(base64); const len = binaryString.length; const bytes = new Uint8Array(len); for (let i = 0; i < len; i++) { bytes[i] = binaryString.charCodeAt(i); } return bytes.buffer; };
+        const pcmToWav = (pcmData, sampleRate) => { const pcm16 = new Int16Array(pcmData); const view = new DataView(new ArrayBuffer(44)); view.setUint32(0, 0x52494646, false); view.setUint32(4, 36 + pcm16.byteLength, true); view.setUint32(8, 0x57415645, false); view.setUint32(12, 0x666d7420, false); view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true); view.setUint32(24, sampleRate, true); view.setUint32(28, sampleRate * 2, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true); view.setUint32(36, 0x64617461, false); view.setUint32(40, pcm16.byteLength, true); return new Blob([view, pcm16], { type: 'audio/wav' }); };
+        window.playTextFromSection = async (sectionContentId) => {
+            const contentElement = document.getElementById(sectionContentId);
+            const textToSpeak = contentElement?.innerText.trim();
+            if (!textToSpeak) return;
+            const button = contentElement.closest('section').querySelector('.tts-button');
+            const originalIcon = button.innerHTML;
+            button.disabled = true; button.innerHTML = `<div class="w-6 h-6 loader !border-t-[#003F5C]"></div>`;
+            if (currentAudioSource) currentAudioSource.stop();
+            if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            try {
+                const payload = { contents: [{ parts: [{ text: textToSpeak }] }], generationConfig: { responseModalities: ["AUDIO"] }, model: "gemini-2.5-flash-preview-tts" };
+                const response = await fetch(ttsApiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+                const result = await response.json();
+                const audioData = result.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+                const mimeType = result.candidates?.[0]?.content?.parts?.[0]?.inlineData?.mimeType;
+                if (audioData && mimeType?.startsWith("audio/")) {
+                    const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)?.[1] || "24000", 10);
+                    const wavBlob = pcmToWav(base64ToArrayBuffer(audioData), sampleRate);
+                    const audioBuffer = await audioContext.decodeAudioData(await (await fetch(URL.createObjectURL(wavBlob))).arrayBuffer());
+                    currentAudioSource = audioContext.createBufferSource();
+                    currentAudioSource.buffer = audioBuffer;
+                    currentAudioSource.connect(audioContext.destination);
+                    currentAudioSource.start(0);
+                    currentAudioSource.onended = () => { button.disabled = false; button.innerHTML = originalIcon; };
+                } else { throw new Error("No audio data."); }
+            } catch (error) { console.error("TTS Error:", error); button.disabled = false; button.innerHTML = originalIcon; }
+        };
+
+        onAuthStateChanged(auth, user => {
+            userId = user?.uid;
+            document.getElementById('loginBtn').classList.toggle('hidden', !!user);
+            document.getElementById('userInfo').classList.toggle('hidden', !user);
+            if(user) {
+                document.getElementById('userIdDisplay').textContent = `ID: ${userId.substring(0, 12)}...`;
+                setupNoteTaking();
+            } else {
+                cleanupNoteTaking();
+            }
+        });
+        document.getElementById('loginBtn').addEventListener('click', () => signInAnonymously(auth).catch(e => console.error(e)));
+        document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+        
+        const noteSections = ['fire', 'satellites', 'bci', 'scenarios'];
+        function setupNoteTaking() { noteSections.forEach(id => { const container = document.getElementById(`note-container-${id}`); if (!container) return; container.classList.remove('hidden'); container.innerHTML = `<h4 class="font-bold text-lg text-[#003F5C] mb-2">Sua Análise Pessoal</h4><textarea id="note-input-${id}" class="w-full p-2 border rounded-md" placeholder="Escreva sua reflexão aqui..."></textarea><button id="note-save-${id}" class="mt-2 bg-[#366E8A] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#2a556b]">Salvar Anotação</button><p id="note-status-${id}" class="text-sm text-gray-500 mt-1"></p>`; const noteRef = doc(db, 'artifacts', appId, 'users', userId, 'notes', id); const input = document.getElementById(`note-input-${id}`); const saveBtn = document.getElementById(`note-save-${id}`); const status = document.getElementById(`note-status-${id}`); noteUnsubscribe[id] = onSnapshot(noteRef, (docSnap) => { input.value = docSnap.exists() ? docSnap.data().text : ''; }); saveBtn.addEventListener('click', () => { setDoc(noteRef, { text: input.value }, { merge: true }).then(() => { status.textContent = 'Salvo!'; setTimeout(() => status.textContent = '', 2000); }).catch(e => { status.textContent = 'Erro.'; console.error(e); }); }); }); }
+        function cleanupNoteTaking() { noteSections.forEach(id => { const container = document.getElementById(`note-container-${id}`); if (container) container.classList.add('hidden'); if (noteUnsubscribe[id]) noteUnsubscribe[id](); }); }
+
+        const faders = document.querySelectorAll('.fade-in-section');
+        const appearOnScroll = new IntersectionObserver((entries, observer) => { entries.forEach(entry => { if (!entry.isIntersecting) return; entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }); }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        faders.forEach(fader => appearOnScroll.observe(fader));
+        
+        // --- GRÁFICOS ---
+        const tooltipTitleCallback = (items) => { let label = items[0].chart.data.labels[items[0].dataIndex]; return Array.isArray(label) ? label.join(' ') : label; };
+        const chartPlugins = { legend: { labels: { color: '#003F5C' } }, tooltip: { callbacks: { title: tooltipTitleCallback } } };
+
+        const cumulativeLandingsData = [2, 10, 28, 49, 69, 95, 126, 187, 283, 383];
+        new Chart(document.getElementById('cumulativeLandingsChart').getContext('2d'), {
+            type: 'bar',
+            data: { labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'], datasets: [{ label: 'Total Acumulado de Aterrissagens de Foguetes', data: cumulativeLandingsData, backgroundColor: '#FFA600', borderColor: '#E69500', borderWidth: 1 }] },
+            options: { maintainAspectRatio: false, responsive: true, plugins: chartPlugins, scales: { y: { beginAtZero: true, ticks: { color: '#366E8A' } }, x: { ticks: { color: '#366E8A' } } } }
+        });
+
+        new Chart(document.getElementById('satelliteInfluenceChart').getContext('2d'), {
+            type: 'polarArea',
+            data: { labels: ['Comunicação Global', 'Militar & Defesa', 'Navegação (GPS)', 'Observação da Terra', 'Transações Financeiras'], datasets: [{ label: 'Domínios de Influência', data: [10, 8, 9, 7, 8], backgroundColor: ['#003f5c', '#58508d', '#bc5090', '#ff6361', '#ffa600'] }] },
+            options: { maintainAspectRatio: false, responsive: true, plugins: chartPlugins, scales: { r: { ticks: { display: false }, grid: { circular: true } } } }
+        });
+
+        document.getElementById('analyzeFire').addEventListener('click', () => callGeminiAPI("Analise o impacto estratégico e geopolítico da tecnologia de foguetes reutilizáveis, focando em como ela altera o equilíbrio de poder no acesso ao espaço. Responda em Português.", document.getElementById('fireAnalysisLoader'), document.getElementById('fireAnalysisResult')));
+        document.getElementById('generateScenarios').addEventListener('click', () => callGeminiAPI("Com base na convergência de mega-constelações de satélites, interfaces cérebro-computador e IA, gere três cenários distintos para a sociedade em 2084: um utópico (Cenário Aurora), um distópico (Cenário Nexus) e um de equilíbrio complexo (Cenário Kintsugi). Responda em Português.", document.getElementById('scenariosLoader'), document.getElementById('scenariosResult')));
+
+    </script>
+</body>
+</html>
+
